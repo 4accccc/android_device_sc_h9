@@ -1,0 +1,51 @@
+on early-init
+    # Create framebuffer device node (ueventd doesn't create it automatically)
+    exec -- /sbin/mknod -m 660 /dev/fb0 c 29 0
+
+    # Create framebuffer symlink (TWRP expects /dev/graphics/fb0)
+    mkdir /dev/graphics 0660 root graphics
+    symlink /dev/fb0 /dev/graphics/fb0
+
+    # Save early dmesg for debug
+    mkdir /cache 0770 system cache
+    wait /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache 5
+    mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache /cache
+    write /cache/twrp_boot.log "=== TWRP Early Init Started ===\n"
+
+on fs
+    # set charging free due to it waits for USB activation
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+
+    # distinguish USB shoulde connect or not, i.e. CDP vs SDP
+    write /sys/devices/platform/mt_usb/cmode 2
+
+    # Save dmesg to cache
+    exec -- /sbin/sh -c "dmesg > /cache/dmesg_early.log"
+    write /cache/twrp_boot.log "=== FS Stage Reached ===\n"
+
+on property:ro.debuggable=1
+    # restore cmode to normal for making USB enumeration
+    write /sys/devices/platform/mt_usb/cmode 1
+
+on post-fs-data
+    # Support A/B feature for boot region
+    symlink /dev/block/mmcblk0boot0 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/preloader_a
+    symlink /dev/block/mmcblk0boot1 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/preloader_b
+
+    # Save logs
+    exec -- /sbin/sh -c "dmesg > /cache/dmesg_postfs.log"
+    write /cache/twrp_boot.log "=== Post-FS-Data Reached ===\n"
+
+on boot
+    # Final log save
+    exec -- /sbin/sh -c "dmesg > /cache/dmesg_boot.log"
+    write /cache/twrp_boot.log "=== Boot Stage Reached ===\n"
+
+# Log saver service - runs continuously
+service logdump /sbin/sh -c "while true; do dmesg > /cache/dmesg_loop.log; sleep 2; done"
+    disabled
+    seclabel u:r:recovery:s0
+
+on property:sys.usb.config=*
+    exec -- /sbin/sh -c "dmesg > /cache/dmesg_usb.log"
