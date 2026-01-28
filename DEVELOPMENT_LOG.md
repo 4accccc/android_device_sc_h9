@@ -475,6 +475,7 @@ device/sc/k50sv1_64/
 │   └── dtb.img
 └── recovery/root/
     ├── init.recovery.mt6755.rc
+    ├── init.recovery.usb.rc
     ├── ueventd.rc
     ├── dev/
     ├── proc/
