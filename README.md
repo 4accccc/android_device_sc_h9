@@ -1,6 +1,21 @@
 # TeamWin Recovery Project device tree for SC H9 (k50sv1_64)
+<img style="display: block; margin: 0 auto;" width="543" height="550" alt="image" src="https://github.com/user-attachments/assets/680924d1-acb7-4c9a-915e-e949308c7c0d">
 
-### "松川国际H9平板电脑点歌机"，实为安卓8.1，MT6755的杂牌平板加AOSP定制系统。
+| Feature                 | Specification                                                        |
+| :---------------------- | :--------------------------------------------------------------------|
+| CPU                     | Octa-core (8x 1.508 GHz Cortex-A53)                                  |
+| Chipset                 | MediaTek MT6750V (28nm HPC+)                                         |
+| GPU                     | Mali-T860 MP2                                                        |
+| Memory                  | 4 GB                                                                 |
+| Shipped Android Version | Android 8.1                                                          |
+| Storage                 | 32 GB                                                                |
+| Battery                 | 3750 mAh (non-removable)                                             |
+| Display                 | 800x1280, 7.2", 210 PPI                                              |
+| Rear Camera             | 5 MP, LED flash                                                      |
+| Front Camera            | 2 MP                                                                 |
+| Release Date            | Jun., 2022                                                           |
+
+### "松川国际H9平板电脑点歌机"，实为安卓8.1，MT6750的杂牌平板加AOSP定制系统。
 
 ## 如何构建？
 最好科学上网。如果有哪步运行出错了别开issue问我，烦人。问AI就行了   
