@@ -26,7 +26,10 @@ echo "4" > /data/local/tmp/boot_mode_fake
 mount --bind /data/local/tmp/boot_mode_fake /sys/class/BOOT/BOOT/boot/boot_mode
 mknod /dev/tty0 c 1 3
 chmod 666 /dev/tty0
+stop recovery
 LD_PRELOAD=/tmp/fake_tty.so /system/bin/factory
+要退出工厂模式，在命令行终端内CTRL+C就行了。
+start recovery
 ```
 ## 如何构建？
 最好科学上网。如果有哪步运行出错了别开issue问我，烦人。问AI就行了   
