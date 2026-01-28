@@ -31,6 +31,9 @@ LD_PRELOAD=/tmp/fake_tty.so /system/bin/factory
 要退出工厂模式，在命令行终端内CTRL+C就行了。
 start recovery
 ```
+
+### 更多请查看[DEVELOPMENT_LOG.md](https://github.com/4accccc/android_device_sc_h9/blob/twrp-8.1/DEVELOPMENT_LOG.md)
+
 ## 如何构建？
 最好科学上网。如果有哪步运行出错了别开issue问我，烦人。问AI就行了   
 先安装依赖
