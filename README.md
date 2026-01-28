@@ -17,6 +17,17 @@
 
 ### "松川国际H9平板电脑点歌机"，实为安卓8.1，MT6750的杂牌平板加AOSP定制系统。
 
+## 如何在TWRP内启动设备原生的工厂模式
+```
+adb push ./fake_tty.so /tmp/
+adb shell
+mount -o rw,remount /system
+echo "4" > /data/local/tmp/boot_mode_fake
+mount --bind /data/local/tmp/boot_mode_fake /sys/class/BOOT/BOOT/boot/boot_mode
+mknod /dev/tty0 c 1 3
+chmod 666 /dev/tty0
+LD_PRELOAD=/tmp/fake_tty.so /system/bin/factory
+```
 ## 如何构建？
 最好科学上网。如果有哪步运行出错了别开issue问我，烦人。问AI就行了   
 先安装依赖
